@@ -1,4 +1,4 @@
-
+# linear regression model 
 
 
 lin.pred.list <- list()
@@ -25,6 +25,43 @@ for (stock in stock_picks) {
   }
   
 }
+
+####
+
+# moving average
+
+MA.pred.list <- list()
+MA.actual.list <- list()
+MA.MMSE.list <- list()
+
+
+for (stock in stock_picks) {
+  
+  matrix.data <- get(paste0(stock, sep = ".", "Hankel.Matrix"))[-1]
+  
+  for (i in 1:nrow(matrix.data)) {
+    MA.pred.list[[stock]][[i]] <- mean(as.numeric(matrix.data[i,1:5]))
+    MA.actual.list[[stock]][[i]] <- as.numeric(matrix.data[i,6])
+    MA.MMSE.list[[stock]][[i]] <- (mean(as.numeric(matrix.data[i,1:5])) - as.numeric(matrix.data[i,6]))^2
+  }
+  
+  
+  
+}
+
+
+### 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
