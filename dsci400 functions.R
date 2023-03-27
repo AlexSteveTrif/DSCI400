@@ -2,7 +2,7 @@ pred.list <- list()
 MMSE.list <- list()
 actual.list <- list()
 
-# traditional covarience matric 
+# traditional covariance matrix 
 
 for (stocks in stock_picks) {
   
