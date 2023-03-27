@@ -3,6 +3,7 @@
 
 lin.pred.list <- list()
 lin.MMSE.list <- list()
+lin.MSE.list <- list()
 lin.list <- list()
 
 
@@ -23,8 +24,10 @@ for (stock in stock_picks) {
   lin.MMSE.list[[stock]][[i]] <- (matrix.data[i,11] - predict(linear.model, newdata = matrix.data[i,1:5]))^2
   
   }
-  
+  lin.MSE.list[[stock]] <- mean(as.numeric(lin.MMSE.list[[stock]]))
 }
+
+
 
 ####
 
