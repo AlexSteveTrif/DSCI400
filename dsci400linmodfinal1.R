@@ -97,8 +97,8 @@ lin.MMSE.list <- list()
 lin.list <- list()
 
 
-for (stock in 1:length(stock_picks)) {
-  matrix.data <- get(paste0(stock_picks[stock], sep = ".", "Hankel.Matrix"))[-1]
+for (stock in stock_picks) {
+  matrix.data <- get(paste0(stock, sep = ".", "Hankel.Matrix"))[-1]
   
   linear.model <- lm(day10 + day9 ~ day0 + day1 + day2 + day3 + day4, data = matrix.data)
   
