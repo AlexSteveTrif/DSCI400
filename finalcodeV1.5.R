@@ -269,7 +269,7 @@ func <- function(N, M, L) {
     
     Pred.Tables[[stocks]] <- pred.table
     
-  
+    
     
     
     
@@ -328,6 +328,9 @@ func <- function(N, M, L) {
 func(10, 5, 2)
 
 
+func(30, 15, 2)
+
+
 
 
 
@@ -366,7 +369,6 @@ plot.gen2("MSFT")
 
 plot.gen("AAPL")
 plot.gen2("AAPL")
-
 
 
 
