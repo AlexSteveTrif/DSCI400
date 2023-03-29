@@ -1,6 +1,8 @@
 pred.list <- list()
-MMSE.list <- list()
+MSE.list <- list()
+MSE.list2 <- list()
 actual.list <- list()
+
 
 # traditional covariance matrix 
 
@@ -89,12 +91,27 @@ for (stocks in stock_picks) {
   
   actual.list[[stocks]][[i]] <- as.numeric(matrix.data[i,6:11])
   
-  MMSE.list[[stocks]][[i]] <- (as.numeric(matrix.data[i,6:11]) - as.numeric(sigma.zw %*% solve(sigma.ww) %*% w))^2
+  MSE.list[[stocks]][[i]] <- mean((as.numeric(matrix.data[i,6:11]) - as.numeric(sigma.zw %*% solve(sigma.ww) %*% w))^2)
+  
+  MSE.list2[[stocks]][[i]] <- (as.numeric(matrix.data[i,6:11]))^2 + (as.numeric(sigma.zw %*% solve(sigma.ww) %*% w))^2 - 2*()
+  
+
   
   }
   
-  
+
   
 }
 
-pred.list[["AAPL"]][[5]]
+
+
+mean(as.numeric(MSE.list[[1]]))
+
+# trace 
+
+
+
+sum(diag(cov.zz - sigma.zw %*% solve(sigma.ww) %*% sigma.wz))
+
+
+  
