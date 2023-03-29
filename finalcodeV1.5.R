@@ -38,10 +38,6 @@ stock_picks
 
 # M is the length of predction period and is equal to N/2
 
-# N <- 10
-# M <- 5
-# L <- 2 
-
 
 
 
@@ -118,10 +114,12 @@ func <- function(N, M, L) {
   pred.list <- list()
   MMSE.list <- list()
   actual.list <- list()
+  d.stat.list <- list()
   
   pred.list2 <- list()
   MMSE.list2 <- list()
   actual.list2 <- list()
+  d.stat.list2 <- list()
   
   
   
@@ -161,6 +159,9 @@ func <- function(N, M, L) {
     actual.list[[stocks]] <- as.numeric(matrix.data[1,(M+1):(N+1)])
     
     MMSE.list[[stocks]] <- (as.numeric(matrix.data[1,(M+1):(N+1)]) - as.numeric(sigma.zw %*% solve(sigma.ww) %*% w))^2
+    
+    d.stat.list[[stocks]] <- mean(ifelse(((matrix.data[1,(M+2):(N+1)] - matrix.data[1,(M+1):(N)])*(matrix.data[1,(M+2):(N+1)] - as.numeric(sigma.zw %*% solve(sigma.ww) %*% w)))>0, 1,0))
+
     
     
     
@@ -250,6 +251,9 @@ func <- function(N, M, L) {
     MMSE.list2[[stocks]] <- (as.numeric(matrix.data[1,(M+1):(N)]) - as.numeric((AA + as.numeric(sapply(normailzed.matrix[(M+1):(N)],
                                                                                                        mean)))*matrix.data[1,N]))^2
     
+    d.stat.list2[[stocks]] <- mean(ifelse(((matrix.data[1,(M+2):(N+1)] - matrix.data[1,(M+1):(N)])*(matrix.data[1,(M+2):(N+1)] - as.numeric((AA + as.numeric(sapply(normailzed.matrix[(M+1):(N)], mean)))*matrix.data[1,N])))>0, 1,0))
+
+    
     print(paste0(stocks, sep = " ", "DONE"))
   }
   
@@ -308,10 +312,12 @@ func <- function(N, M, L) {
   assign("pred.list", pred.list, envir = .GlobalEnv)
   assign("actual.list", actual.list, envir = .GlobalEnv)
   assign("MSE.list", MMSE.list, envir = .GlobalEnv)
+  assign("d.stat.list", d.stat.list, envir = .GlobalEnv)
   
   assign("pred.list2", pred.list2, envir = .GlobalEnv)
   assign("actual.list2", actual.list2, envir = .GlobalEnv)
   assign("MSE.list2", MMSE.list2, envir = .GlobalEnv)
+  assign("d.stat.list2", d.stat.list2, envir = .GlobalEnv)
   
   assign("Pred.Tables", Pred.Tables, envir = .GlobalEnv)
   assign("Pred.Tables2", Pred.Tables2, envir = .GlobalEnv)
@@ -325,7 +331,10 @@ func <- function(N, M, L) {
 }
 
 
-func(10, 5, 2)
+func(10,5,2)
+
+
+func(100, 50, 2)
 
 
 func(30, 15, 2)
@@ -362,6 +371,8 @@ plot.gen2 <- function(stocks){
 
 # gold is our prediction, red is our actual 
 
+
+
 plot.gen("MSFT")
 plot.gen2("MSFT")
 
@@ -369,6 +380,14 @@ plot.gen2("MSFT")
 
 plot.gen("AAPL")
 plot.gen2("AAPL")
+
+
+plot.gen("GOOG")
+plot.gen2("GOOG")
+
+
+
+ 
 
 
 
